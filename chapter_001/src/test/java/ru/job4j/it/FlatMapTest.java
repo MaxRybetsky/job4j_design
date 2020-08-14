@@ -2,6 +2,7 @@ package ru.job4j.it;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+
 import org.junit.Test;
 
 import java.util.*;
@@ -46,6 +47,15 @@ public class FlatMapTest {
         ).iterator();
         FlatMap<Integer> flat = new FlatMap<>(data);
         assertThat(flat.next(), is(1));
+        assertThat(flat.hasNext(), is(false));
+    }
+
+    @Test
+    public void whenEmptyThenHasNoNext() {
+        Iterator<Iterator<Object>> data = List.of(
+                Collections.emptyIterator()
+        ).iterator();
+        FlatMap<Object> flat = new FlatMap<>(data);
         assertThat(flat.hasNext(), is(false));
     }
 

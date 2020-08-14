@@ -1,8 +1,6 @@
 package ru.job4j.it;
 
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class FlatMap<T> implements Iterator<T> {
@@ -15,8 +13,13 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return data.hasNext()
-                || (cursor != null && cursor.hasNext());
+        while (cursor == null || !cursor.hasNext()) {
+            if (!data.hasNext()) {
+                return false;
+            }
+            cursor = data.next();
+        }
+        return true;
     }
 
     @Override
@@ -24,22 +27,6 @@ public class FlatMap<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        if (cursor == null || !cursor.hasNext()) {
-            cursor = data.next();
-        }
         return cursor.next();
-    }
-
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static void main(String[] args) {
-        Integer[] aa = new Integer[]{};
-        Iterator<Iterator<Integer>> a = Arrays.asList(
-                Arrays.asList(aa).iterator()
-        ).iterator();
-        System.out.println(a.hasNext());
     }
 }
