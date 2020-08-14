@@ -13,7 +13,8 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return getEvenNumber(false) != -1;
+        point = point != -1 ? getEvenNumber() : -1;
+        return point != -1;
     }
 
     @Override
@@ -21,21 +22,13 @@ public class EvenNumbersIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return getEvenNumber(true);
+        return data[point++];
     }
 
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
-
-    private int getEvenNumber(boolean changePoint) {
+    private int getEvenNumber() {
         for (int i = point; i < data.length; i++) {
             if (data[i] % 2 == 0) {
-                if (changePoint) {
-                    point = i + 1;
-                }
-                return data[i];
+                return i;
             }
         }
         return -1;
