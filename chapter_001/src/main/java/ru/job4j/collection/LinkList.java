@@ -1,6 +1,8 @@
 package ru.job4j.collection;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class LinkList<E> implements Iterable<E> {
@@ -17,27 +19,20 @@ public class LinkList<E> implements Iterable<E> {
     }
 
     public void add(E value) {
-        Node<E> elem = new Node<>(value, point++);
-        if(isEmpty()) {
+        Node<E> elem = new Node<>(value);
+        if (isEmpty()) {
             first = elem;
         } else {
             last.next = elem;
         }
         last = elem;
+        point++;
         modCount++;
     }
 
     public E get(int index) {
         Objects.checkIndex(index, point);
-        Node<E> current = first;
-        while(current.index != index) {
-            if(current.next == null) {
-                return null;
-            } else {
-                current = current.next;
-            }
-        }
-        return current.value;
+        return node(index).value;
     }
 
     public boolean isEmpty() {
@@ -46,39 +41,66 @@ public class LinkList<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new LinkListIterator<E>(this);
-    }
-
-    public int getModCount() {
-        return modCount;
-    }
-
-    public int size() {
-        return point;
+        return new LinkListIterator();
     }
 
     @Override
     public String toString() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return "";
         }
         StringBuilder res = new StringBuilder();
         Node<E> current = first;
-        while(current != null) {
+        while (current != null) {
             res.append(current.value).append(" ");
             current = current.next;
         }
         return res.toString();
     }
 
-    private class Node<E> {
+    private Node<E> node(int index) {
+        Node<E> result = first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        return result;
+    }
+
+    private static class Node<E> {
         private E value;
         private Node<E> next;
-        private int index;
 
-        public Node(E value, int index) {
+        public Node(E value) {
             this.value = value;
-            this.index = index;
+        }
+    }
+
+    private class LinkListIterator implements Iterator<E> {
+        private int index = 0;
+        private final int expModCount = modCount;
+        private Node<E> current = first;
+
+        @Override
+        public boolean hasNext() {
+            if (isModified()) {
+                throw new ConcurrentModificationException();
+            }
+            return index < point;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Node<E> res = current;
+            current = current.next;
+            index++;
+            return res.value;
+        }
+
+        private boolean isModified() {
+            return expModCount != modCount;
         }
     }
 }
