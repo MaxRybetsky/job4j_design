@@ -33,14 +33,14 @@ public class SimpleMap<K, V> implements Iterable<K> {
     }
 
     public V get(K key) {
-        if(nullElement(key)) {
+        if(!hasKey(key)) {
             throw new NoSuchElementException();
         }
         return table[index(key)].value;
     }
 
     public boolean delete(K key) {
-        if(nullElement(key)) {
+        if(!hasKey(key)) {
             return false;
         }
         table[index(key)] = null;
@@ -48,12 +48,12 @@ public class SimpleMap<K, V> implements Iterable<K> {
         return true;
     }
 
-    private boolean nullElement(K key) {
+    private boolean hasKey(K key) {
         int i = index(key);
-        if(table[i] == null) {
-            return true;
+        if(table[i] == null || !key.equals(table[i].key)) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     private int index(K key) {

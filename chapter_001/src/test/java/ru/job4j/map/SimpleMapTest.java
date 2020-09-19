@@ -90,4 +90,26 @@ public class SimpleMapTest {
         }
         assertThat(map.getCapacity(), is(64));
     }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenGetWithDifferentKeysButWithSampleHash(){
+        BadHashClass test1 = new BadHashClass(1);
+        BadHashClass test2 = new BadHashClass(2);
+        BadHashClass test3 = new BadHashClass(3);
+        SimpleMap<BadHashClass, Integer> map = new SimpleMap<>();
+        map.insert(test1, 1);
+        map.insert(test2, 2);
+        int value3 = map.get(test3);
+    }
+
+    @Test
+    public void whenDeleteWithDifferentKeysButWithSampleHash(){
+        BadHashClass test1 = new BadHashClass(1);
+        BadHashClass test2 = new BadHashClass(2);
+        BadHashClass test3 = new BadHashClass(3);
+        SimpleMap<BadHashClass, Integer> map = new SimpleMap<>();
+        map.insert(test1, 1);
+        map.insert(test2, 2);
+        assertThat(map.delete(test3), is(false));
+    }
 }
