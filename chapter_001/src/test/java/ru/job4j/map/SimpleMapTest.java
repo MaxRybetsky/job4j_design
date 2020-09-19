@@ -31,6 +31,13 @@ public class SimpleMapTest {
         int year = map.get("Ivan");
     }
 
+    @Test(expected = NoSuchElementException.class)
+    public void whenGetNullKey() {
+        SimpleMap<String, Integer> map = new SimpleMap<>();
+        map.insert("Max", 1996);
+        int year = map.get(null);
+    }
+
     @Test
     public void whenDelete() {
         SimpleMap<String, Integer> map = new SimpleMap<>();

@@ -50,7 +50,7 @@ public class SimpleMap<K, V> implements Iterable<K> {
 
     private boolean hasKey(K key) {
         int i = index(key);
-        if(table[i] == null || !key.equals(table[i].key)) {
+        if(table[i] == null || !table[i].key.equals(key)) {
             return false;
         }
         return true;
