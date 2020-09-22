@@ -16,10 +16,10 @@ class Tree<E> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         Node<E> parentNode = findBy(parent).orElse(null);
-        if(parentNode == null) {
+        if (parentNode == null) {
             throw new NoSuchElementException();
         }
-        if(findBy(child).isPresent()) {
+        if (findBy(child).isPresent()) {
             return false;
         }
         return parentNode.children.add(new Node<>(child));
@@ -39,5 +39,18 @@ class Tree<E> implements SimpleTree<E> {
             data.addAll(el.children);
         }
         return rsl;
+    }
+
+    public boolean isBinary() {
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.children.size() > 2) {
+                return false;
+            }
+            data.addAll(el.children);
+        }
+        return true;
     }
 }
