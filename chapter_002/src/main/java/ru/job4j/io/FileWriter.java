@@ -8,7 +8,7 @@ public class FileWriter {
     }
 
     public static void printTable(int[][] table) {
-        try(FileOutputStream out = new FileOutputStream("result.txt")) {
+        try (FileOutputStream out = new FileOutputStream("result.txt")) {
             for (int[] array : table) {
                 for (int value : array) {
                     String space = value < 10 ? "  " : " ";
