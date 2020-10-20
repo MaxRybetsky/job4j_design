@@ -32,7 +32,7 @@ public class LogFilter {
                         new FileOutputStream(file)
                 ))) {
             for(String str : log) {
-                out.write(str + "\n");
+                out.write(str + System.lineSeparator());
             }
         } catch (Exception e) {
             e.printStackTrace();
