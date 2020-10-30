@@ -3,6 +3,8 @@ package ru.job4j.io;
 import java.io.*;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleChat {
@@ -19,47 +21,54 @@ public class ConsoleChat {
 
     public void run() {
         Scanner sc = new Scanner(System.in);
+        StringBuilder dialog = new StringBuilder();
         String userMessage;
         boolean wasBreak = false;
-        try (BufferedWriter out = new BufferedWriter(
-                new FileWriter(path, StandardCharsets.UTF_8, true)
-        )) {
-            System.out.print("user: ");
-            while (!OUT.equals(userMessage = sc.nextLine())) {
-                out.write("user: " + userMessage + System.lineSeparator());
-                if (STOP.equals(userMessage)) {
-                    wasBreak = true;
-                }
-                if (CONTINUE.equals(userMessage)) {
-                    wasBreak = false;
-                }
-                if (!wasBreak) {
-                    String botMessage = "bot:  " + botAnswer();
-                    System.out.println(botMessage);
-                    out.write(botMessage + System.lineSeparator());
-                }
-                System.out.print("user: ");
+        System.out.print("user: ");
+        while (!OUT.equals(userMessage = sc.nextLine())) {
+            dialog.append("user: ")
+                    .append(userMessage)
+                    .append(System.lineSeparator());
+            if (STOP.equals(userMessage)) {
+                wasBreak = true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (CONTINUE.equals(userMessage)) {
+                wasBreak = false;
+            }
+            if (!wasBreak) {
+                String botMessage = "bot:  " + botAnswer();
+                System.out.println(botMessage);
+                dialog.append(botMessage)
+                        .append(System.lineSeparator());
+            }
+            System.out.print("user: ");
         }
+        writeFile(dialog.toString(), path);
     }
 
     private String botAnswer() {
-        try (RandomAccessFile file =
-                     new RandomAccessFile(botAnswers, "r")) {
-            long fileLength = file.length();
-            long pos = (long) (Math.random() * fileLength);
-            while (pos >= 0 && file.readByte() != 13) {
-                file.seek(pos--);
-            }
-            file.readLine();
-            return new String(file.readLine()
-                    .getBytes(StandardCharsets.ISO_8859_1),
-                    StandardCharsets.UTF_8);
+        List<String> answers = readFile(botAnswers);
+        int ansPos = (int) (Math.random() * answers.size());
+        return answers.get(ansPos);
+    }
+
+    private List<String> readFile(String path) {
+        List<String> result = new ArrayList<>();
+        try (BufferedReader in = new BufferedReader(
+                new FileReader(path, StandardCharsets.UTF_8))) {
+            in.lines().forEach(result::add);
         } catch (Exception e) {
             e.printStackTrace();
-            return "Sorry, error happens";
+        }
+        return result;
+    }
+
+    private void writeFile(String data, String path) {
+        try (BufferedWriter out = new BufferedWriter(
+                new FileWriter(path, StandardCharsets.UTF_8))) {
+            out.write(data);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
