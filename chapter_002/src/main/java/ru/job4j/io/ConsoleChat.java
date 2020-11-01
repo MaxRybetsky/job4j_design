@@ -10,9 +10,6 @@ import java.util.Scanner;
 public class ConsoleChat {
     private final String path;
     private final String botAnswers;
-    private static final String OUT = "закончить";
-    private static final String STOP = "стоп";
-    private static final String CONTINUE = "продолжить";
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
@@ -23,25 +20,20 @@ public class ConsoleChat {
         Scanner sc = new Scanner(System.in);
         StringBuilder dialog = new StringBuilder();
         String userMessage;
-        boolean wasBreak = false;
-        System.out.print("user: ");
-        while (!OUT.equals(userMessage = sc.nextLine())) {
+        int commandID = 1;
+        CommandsDisp disp = new CommandsDisp();
+        while (commandID != 3) {
+            System.out.print("user: ");
+            commandID = disp.getCommandID(userMessage = sc.nextLine());
             dialog.append("user: ")
                     .append(userMessage)
                     .append(System.lineSeparator());
-            if (STOP.equals(userMessage)) {
-                wasBreak = true;
-            }
-            if (CONTINUE.equals(userMessage)) {
-                wasBreak = false;
-            }
-            if (!wasBreak) {
+            if (commandID == 1) {
                 String botMessage = "bot:  " + botAnswer();
                 System.out.println(botMessage);
                 dialog.append(botMessage)
                         .append(System.lineSeparator());
             }
-            System.out.print("user: ");
         }
         writeFile(dialog.toString(), path);
     }
