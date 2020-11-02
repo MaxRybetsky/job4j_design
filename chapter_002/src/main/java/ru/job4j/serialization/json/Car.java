@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Car {
     private boolean isNew;
@@ -29,6 +30,26 @@ public class Car {
                 + ", owner=" + owner
                 + ", options=" + Arrays.toString(options)
                 + '}';
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public int getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public List<String> getOptionsAsList() {
+        return Arrays.asList(options);
     }
 
     public static void main(String[] args) {

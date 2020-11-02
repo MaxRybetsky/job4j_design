@@ -13,4 +13,8 @@ public class Person {
                 + "name='" + name + '\''
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
 }
