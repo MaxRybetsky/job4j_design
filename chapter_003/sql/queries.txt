@@ -1,0 +1,12 @@
+create database cars;
+\c cars;
+create table new_cars(
+    id serial primary key,
+    name varchar(100),
+    max_speed integer,
+    description text
+);
+insert into new_cars(name, max_speed, description)
+values ('Ferrari Portofino', 300, 'Sportcar, cabriolet');
+update new_cars set max_speed=340;
+select * from new_cars;
