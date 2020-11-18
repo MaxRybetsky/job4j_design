@@ -1,5 +1,7 @@
-select * from product where type_id=any
-    (select id from type where name='СЫР');
+select p.* from type t
+      left join product p
+      on t.id=p.type_id
+where t.name='СЫР';
 
 select * from product where name like '%мороженное%';
 
@@ -8,26 +10,23 @@ select * from product where expired_date<current_date+interval '1 month';
 select * from product where price = any
     (select max(price) from product);
 
-select
-    (select name from type where id=type_id),
-    sum(pcs)
-from product
-group by type_id;
+select t.name, sum(p.pcs)
+from product p inner join
+     type t on t.id=p.type_id
+group by t.id;
 
-select * from product where type_id=any
-    (select id from type where name='СЫР'
-	                        or name='МОЛОКО');
+select p.* from type t
+      left join product p
+      on t.id=p.type_id
+where t.name='СЫР' or t.name='МОЛОКО';
 
-select name, nums
-from
-    (select
-        (select name from type where id=type_id) as name,
-        sum(pcs) as nums
-    from product
-    group by type_id) as res
-where nums<10;
+select * from
+	(select t.name, sum(p.pcs) as nums
+	 from product p inner join
+		  type t on t.id=p.type_id
+	 group by t.id) as res
+where nums < 100;
 
-select
-	name,
-	(select name from type where id=type_id)
-from  product;
+select p.name, t.name
+from product p left join type t
+               on p.type_id=t.id;
