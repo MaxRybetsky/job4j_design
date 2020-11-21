@@ -22,6 +22,9 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(line -> {
                 String[] data = line.split(";");
+                if(data.length < 2) {
+                    throw new IllegalStateException("Insufficient data to write");
+                }
                 users.add(new User(data[0], data[1]));
             });
         }
