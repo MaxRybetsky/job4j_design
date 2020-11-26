@@ -19,15 +19,15 @@ public class CopyFinderAppTest {
         Output out = new StringOut();
         folder.newFolder("a", "b", "c");
         folder.newFolder("d", "e", "f");
-        folder.newFile("\\a\\b\\c\\file.txt");
-        folder.newFile("\\d\\e\\file.txt");
+        folder.newFile("/a/b/c/file.txt");
+        folder.newFile("/d/e/file.txt");
         Path root = folder.getRoot().toPath();
         CopyFinderApp.findCopies(root, out);
         assertThat(
                 out.toString(),
                 is(
-                        "original: a\\b\\c\\file.txt\r\n"
-                                + "duplicate: d\\e\\file.txt\r\n"
+                        "original: a/b/c/file.txt\n"
+                                + "duplicate: d/e/file.txt\n"
                 ));
     }
 
@@ -36,8 +36,8 @@ public class CopyFinderAppTest {
         Output out = new StringOut();
         folder.newFolder("a", "b", "c");
         folder.newFolder("d", "e", "f");
-        folder.newFile("\\a\\b\\c\\file.txt");
-        folder.newFile("\\d\\e\\file1.txt");
+        folder.newFile("/a/b/c/file.txt");
+        folder.newFile("/d/e/file1.txt");
         Path root = folder.getRoot().toPath();
         CopyFinderApp.findCopies(root, out);
         System.out.println(out);
@@ -55,21 +55,21 @@ public class CopyFinderAppTest {
         folder.newFolder("d", "g", "h", "i");
         folder.newFolder("j", "k", "l");
         folder.newFolder("m", "n", "o");
-        folder.newFile("\\a\\b\\c\\file.txt");
-        folder.newFile("\\d\\g\\h\\i\\file.txt");
-        folder.newFile("\\j\\file.txt");
-        folder.newFile("\\m\\n\\o\\file.txt");
+        folder.newFile("/a/b/c/file.txt");
+        folder.newFile("/d/g/h/i/file.txt");
+        folder.newFile("/j/file.txt");
+        folder.newFile("/m/n/o/file.txt");
         Path root = folder.getRoot().toPath();
         CopyFinderApp.findCopies(root, out);
         assertThat(
                 out.toString(),
                 is(
-                        "original: a\\b\\c\\file.txt\r\n"
-                                + "duplicate: d\\g\\h\\i\\file.txt\r\n"
-                                + "original: a\\b\\c\\file.txt\r\n"
-                                + "duplicate: j\\file.txt\r\n"
-                                + "original: a\\b\\c\\file.txt\r\n"
-                                + "duplicate: m\\n\\o\\file.txt\r\n"
+                        "original: a/b/c/file.txt\n"
+                                + "duplicate: d/g/h/i/file.txt\n"
+                                + "original: a/b/c/file.txt\n"
+                                + "duplicate: j/file.txt\n"
+                                + "original: a/b/c/file.txt\n"
+                                + "duplicate: m/n/o/file.txt\n"
                 ));
     }
 }
