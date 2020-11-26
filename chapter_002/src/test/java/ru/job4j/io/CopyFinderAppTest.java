@@ -26,8 +26,9 @@ public class CopyFinderAppTest {
         assertThat(
                 out.toString(),
                 is(
-                        "original: a/b/c/file.txt\n"
-                                + "duplicate: d/e/file.txt\n"
+                        "duplicate: d/e/file.txt\n"
+                                + "original: a/b/c/file.txt\n"
+
                 ));
     }
 
