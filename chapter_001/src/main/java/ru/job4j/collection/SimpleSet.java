@@ -7,8 +7,8 @@ public class SimpleSet<E> implements Iterable<E> {
     private final SimpleArray<E> array = new SimpleArray<>();
 
     public void add(E value) {
-        for(E val : array) {
-            if(Objects.equals(val, value)) {
+        for (E val : array) {
+            if (Objects.equals(val, value)) {
                 return;
             }
         }

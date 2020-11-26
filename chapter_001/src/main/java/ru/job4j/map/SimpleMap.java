@@ -25,7 +25,7 @@ public class SimpleMap<K, V> implements Iterable<K> {
             return false;
         }
         table[i] = elem;
-        if(++size >= (int)(capacity * maxLoad)) {
+        if (++size >= (int) (capacity * maxLoad)) {
             resize();
         }
         modCount++;
@@ -33,14 +33,14 @@ public class SimpleMap<K, V> implements Iterable<K> {
     }
 
     public V get(K key) {
-        if(!hasKey(key)) {
+        if (!hasKey(key)) {
             throw new NoSuchElementException();
         }
         return table[index(key)].value;
     }
 
     public boolean delete(K key) {
-        if(!hasKey(key)) {
+        if (!hasKey(key)) {
             return false;
         }
         table[index(key)] = null;
@@ -50,7 +50,7 @@ public class SimpleMap<K, V> implements Iterable<K> {
 
     private boolean hasKey(K key) {
         int i = index(key);
-        if(table[i] == null || !table[i].key.equals(key)) {
+        if (table[i] == null || !table[i].key.equals(key)) {
             return false;
         }
         return true;
@@ -73,8 +73,11 @@ public class SimpleMap<K, V> implements Iterable<K> {
     }
 
     private int hash(K key) {
-        int h;
-        return key == null ? 0 : (h = key.hashCode()) ^ (h >> 16);
+        if (key == null) {
+            return 0;
+        }
+        int h = key.hashCode();
+        return h ^ (h >> 16);
     }
 
     @Override
@@ -82,15 +85,16 @@ public class SimpleMap<K, V> implements Iterable<K> {
         return new Iterator<>() {
             private final int expModCount = modCount;
             int index = 0;
+
             @Override
             public boolean hasNext() {
-                if(expModCount != modCount) {
+                if (expModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                if(index == capacity) {
+                if (index == capacity) {
                     return false;
                 }
-                if(table[index] == null) {
+                if (table[index] == null) {
                     index++;
                     return hasNext();
                 }
@@ -99,7 +103,7 @@ public class SimpleMap<K, V> implements Iterable<K> {
 
             @Override
             public K next() {
-                if(!hasNext()) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 return table[index++].key;

@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-
 public class TreeTest {
     @Test
     public void when6ElFindLastThen6() {

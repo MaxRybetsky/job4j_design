@@ -27,7 +27,7 @@ public class SearchFiles implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if(predicate.test(file)) {
+        if (predicate.test(file)) {
             paths.add(file);
         }
         return CONTINUE;
@@ -43,7 +43,7 @@ public class SearchFiles implements FileVisitor<Path> {
         return CONTINUE;
     }
 
-    public List<Path> getPaths(){
+    public List<Path> getPaths() {
         return paths;
     }
 }

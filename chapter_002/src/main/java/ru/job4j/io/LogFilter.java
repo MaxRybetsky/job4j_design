@@ -9,7 +9,7 @@ public class LogFilter {
         List<String> lines = new ArrayList<>();
         String filterValue = "404";
         for (String str : fileReader(file)) {
-            if(filterValue.equals(str.split(" ")[8])) {
+            if (filterValue.equals(str.split(" ")[8])) {
                 lines.add(str);
             }
         }
@@ -18,7 +18,7 @@ public class LogFilter {
 
     public static List<String> fileReader(String file) {
         List<String> lines = new ArrayList<>();
-        try(BufferedReader in = new BufferedReader(new FileReader("log.txt"))) {
+        try (BufferedReader in = new BufferedReader(new FileReader("log.txt"))) {
             in.lines().forEach(lines::add);
         } catch (Exception e) {
             e.printStackTrace();
@@ -27,11 +27,11 @@ public class LogFilter {
     }
 
     public static void save(List<String> log, String file) {
-        try(PrintWriter out = new PrintWriter(
+        try (PrintWriter out = new PrintWriter(
                 new BufferedOutputStream(
                         new FileOutputStream(file)
                 ))) {
-            for(String str : log) {
+            for (String str : log) {
                 out.write(str + System.lineSeparator());
             }
         } catch (Exception e) {

@@ -16,7 +16,7 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        if(isModified()) {
+        if (isModified()) {
             throw new ConcurrentModificationException();
         }
         return index < array.size();
@@ -24,7 +24,7 @@ public class SimpleArrayIterator<T> implements Iterator<T> {
 
     @Override
     public T next() {
-        if(!hasNext()) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return array.get(index++);

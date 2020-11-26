@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        if(args.length < 2) {
+        if (args.length < 2) {
             throw new IllegalArgumentException("Incorrect number of arguments.");
         }
         Path start = Paths.get(args[0]);

@@ -11,8 +11,8 @@ public class SimpleArray<T> implements Iterable<T> {
     private int modCount = 0;
 
     @SuppressWarnings("unchecked")
-    public SimpleArray(){
-        container = (T[])new Object[numberOfElements];
+    public SimpleArray() {
+        container = (T[]) new Object[numberOfElements];
     }
 
     public T get(int index) {
@@ -20,7 +20,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void add(T model) {
-        if(index == container.length - 1) {
+        if (index == container.length - 1) {
             expContainer();
         }
         container[index++] = model;
@@ -46,7 +46,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private void expContainer(){
+    private void expContainer() {
         T[] temp = container;
         container = (T[]) new Object[container.length + numberOfElements];
         System.arraycopy(temp, 0, container, 0, temp.length);

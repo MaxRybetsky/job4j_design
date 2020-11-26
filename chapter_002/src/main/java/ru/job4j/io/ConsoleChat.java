@@ -24,7 +24,8 @@ public class ConsoleChat {
         CommandsDisp disp = new CommandsDisp();
         while (commandID != 3) {
             System.out.print("user: ");
-            commandID = disp.getCommandID(userMessage = sc.nextLine());
+            userMessage = sc.nextLine();
+            commandID = disp.getCommandID(userMessage);
             dialog.append("user: ")
                     .append(userMessage)
                     .append(System.lineSeparator());

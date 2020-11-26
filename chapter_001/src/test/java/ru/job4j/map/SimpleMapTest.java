@@ -99,7 +99,7 @@ public class SimpleMapTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void whenGetWithDifferentKeysButWithSampleHash(){
+    public void whenGetWithDifferentKeysButWithSampleHash() {
         BadHashClass test1 = new BadHashClass(1);
         BadHashClass test2 = new BadHashClass(2);
         BadHashClass test3 = new BadHashClass(3);
@@ -110,7 +110,7 @@ public class SimpleMapTest {
     }
 
     @Test
-    public void whenDeleteWithDifferentKeysButWithSampleHash(){
+    public void whenDeleteWithDifferentKeysButWithSampleHash() {
         BadHashClass test1 = new BadHashClass(1);
         BadHashClass test2 = new BadHashClass(2);
         BadHashClass test3 = new BadHashClass(3);

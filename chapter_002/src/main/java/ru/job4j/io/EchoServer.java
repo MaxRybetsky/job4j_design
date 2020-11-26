@@ -23,7 +23,8 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     String message = "";
-                    while (!(str = in.readLine()).isEmpty()) {
+                    str = in.readLine();
+                    while (!str.isEmpty()) {
                         System.out.println(str);
                         if (str.contains("GET /?msg=")) {
                             String[] reqData = str.split("\\s")[1]
@@ -33,6 +34,7 @@ public class EchoServer {
                                 proceed = false;
                             }
                         }
+                        str = in.readLine();
                     }
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
                     out.write(message.getBytes());

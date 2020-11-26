@@ -26,8 +26,8 @@ public class CopyFinderAppTest {
         assertThat(
                 out.toString(),
                 is(
-                        "original: a\\b\\c\\file.txt\r\n" +
-                                "duplicate: d\\e\\file.txt\r\n"
+                        "original: a\\b\\c\\file.txt\r\n"
+                                + "duplicate: d\\e\\file.txt\r\n"
                 ));
     }
 
@@ -64,12 +64,12 @@ public class CopyFinderAppTest {
         assertThat(
                 out.toString(),
                 is(
-                        "original: a\\b\\c\\file.txt\r\n" +
-                                "duplicate: d\\g\\h\\i\\file.txt\r\n" +
-                                "original: a\\b\\c\\file.txt\r\n" +
-                                "duplicate: j\\file.txt\r\n" +
-                                "original: a\\b\\c\\file.txt\r\n" +
-                                "duplicate: m\\n\\o\\file.txt\r\n"
+                        "original: a\\b\\c\\file.txt\r\n"
+                                + "duplicate: d\\g\\h\\i\\file.txt\r\n"
+                                + "original: a\\b\\c\\file.txt\r\n"
+                                + "duplicate: j\\file.txt\r\n"
+                                + "original: a\\b\\c\\file.txt\r\n"
+                                + "duplicate: m\\n\\o\\file.txt\r\n"
                 ));
     }
 }

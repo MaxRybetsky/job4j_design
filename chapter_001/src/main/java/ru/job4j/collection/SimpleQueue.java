@@ -5,7 +5,7 @@ public class SimpleQueue<T> {
     private final SimpleStack<T> out = new SimpleStack<>();
 
     public T poll() {
-        if(out.isEmpty()) {
+        if (out.isEmpty()) {
             sendElems();
         }
         return out.pop();

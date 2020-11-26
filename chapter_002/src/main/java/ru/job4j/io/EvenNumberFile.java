@@ -9,8 +9,8 @@ public class EvenNumberFile {
 
     public static void evenCheckAndPrint(int[] array) {
         for (int value : array) {
-            System.out.println(value + " is " +
-                    (value % 2 == 0 ? "even" : "odd"));
+            System.out.println(value + " is "
+                    + (value % 2 == 0 ? "even" : "odd"));
         }
     }
 

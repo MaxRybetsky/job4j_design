@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class SimpleSetTest {
     @Test
-    public void whenAddElements(){
+    public void whenAddElements() {
         SimpleSet<Integer> set = new SimpleSet<>();
         set.add(1);
         set.add(2);
@@ -21,7 +21,7 @@ public class SimpleSetTest {
     }
 
     @Test
-    public void whenAddDuplicateElements(){
+    public void whenAddDuplicateElements() {
         SimpleSet<Integer> set = new SimpleSet<>();
         set.add(1);
         set.add(2);
@@ -34,13 +34,13 @@ public class SimpleSetTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void whenNoElems(){
+    public void whenNoElems() {
         SimpleSet<Integer> set = new SimpleSet<>();
         set.iterator().next();
     }
 
     @Test(expected = ConcurrentModificationException.class)
-    public void whenIteratorAndModification(){
+    public void whenIteratorAndModification() {
         SimpleSet<Integer> set = new SimpleSet<>();
         set.add(1);
         set.add(2);
