@@ -22,7 +22,7 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(line -> {
                 String[] data = line.split(";");
-                if(data.length < 2) {
+                if (data.length < 2) {
                     throw new IllegalStateException("Insufficient data to write");
                 }
                 users.add(new User(data[0], data[1]));
@@ -38,7 +38,7 @@ public class ImportDB {
                 cfg.getProperty("jdbc.username"),
                 cfg.getProperty("jdbc.password")
         )) {
-            if(!isTableExists) {
+            if (!isTableExists) {
                 setTable(cnt);
             }
             for (User user : users) {
@@ -92,7 +92,6 @@ public class ImportDB {
             this.email = email;
         }
     }
-
 
     public static void main(String[] args) throws Exception {
         Properties cfg = new Properties();
