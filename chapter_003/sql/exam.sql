@@ -1,11 +1,8 @@
--- Names of all persons that are NOT in the company with id = 5
-select name
-from person
-where company_id!=5;
-
--- Company name for each person
+-- Retrieve in a single query:
+-- - names of all persons that are NOT in the company with id = 5
+-- - company name for each person
 select p.name, c.name
-from person p inner join company c on p.company_id=c.id;
+from person p inner join company c on p.company_id=c.id and c.id!=5;
 
 -- Select the name of the company with the maximum number of persons + number of persons in this company
 select c.name, count(p.id) as num
