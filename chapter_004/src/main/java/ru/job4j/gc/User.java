@@ -92,6 +92,17 @@ public class User {
     }
 
     /**
+     * Get size of memory empty {@link User}'s object
+     * takes
+     *
+     * @return Memory size of empty project;
+     */
+    public static long getSizeWithEmptyFields() {
+        User user = new User();
+        return user.getSize();
+    }
+
+    /**
      * When JVM is starting to collect the garbage
      * it prints message to us about it process
      *
