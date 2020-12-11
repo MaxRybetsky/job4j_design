@@ -11,18 +11,16 @@ import java.util.Scanner;
  * -Xmx4m -Xms4m -XX:+UseSerialGC
  */
 public class SerialGCDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         long n = Input.getNumberOfIterations();
         long time = System.currentTimeMillis();
         for (long i = 0; i < n; i++) {
-            new User();
+            User user = new User();
             System.out.println(i);
+            Thread.sleep(100);
         }
         System.out.println("Total time: " + (System.currentTimeMillis() - time));
         System.out.println("Total free memory: " + Runtime.getRuntime().freeMemory());
     }
 }
-// coefficient  |   Total time, ms  |   Free Memory, bytes
-//      2                 583              937040
-//      20                5605             974248
-//      100              28096            1198744
+//https://prnt.sc/w0gjym - Results

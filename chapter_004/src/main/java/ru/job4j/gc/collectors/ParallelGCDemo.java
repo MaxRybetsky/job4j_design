@@ -11,18 +11,15 @@ import java.util.Scanner;
  * -Xmx4m -Xms4m -XX:+UseParallelGC
  */
 public class ParallelGCDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         long n = Input.getNumberOfIterations();
         long time = System.currentTimeMillis();
         for (long i = 0; i < n; i++) {
-            new User();
+            User user = new User();
             System.out.println(i);
+            Thread.sleep(1000);
         }
         System.out.println("Total time: " + (System.currentTimeMillis() - time));
         System.out.println("Total free memory: " + Runtime.getRuntime().freeMemory());
     }
 }
-// coefficient  |   Total time, ms  |   Free Memory, bytes
-//      2                 652               1288168
-//      20                5871               794600
-//      100              29615              1202336
