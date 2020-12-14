@@ -112,9 +112,9 @@ public class FileCache {
      */
     public void addFilesToCache(String directory) throws IOException {
         setDirectory(directory);
-        Files.walkFileTree(Path.of(directory), new FileVisitor<Path>() {
+        Files.walkFileTree(Path.of(directory), new FileVisitor<>() {
             @Override
-            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+            public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
                 return FileVisitResult.CONTINUE;
             }
 
@@ -127,12 +127,12 @@ public class FileCache {
             }
 
             @Override
-            public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
+            public FileVisitResult visitFileFailed(Path file, IOException exc) {
                 return FileVisitResult.SKIP_SUBTREE;
             }
 
             @Override
-            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
                 return FileVisitResult.CONTINUE;
             }
         });
@@ -157,15 +157,17 @@ public class FileCache {
      * Adds the given file to cache.
      *
      * @param file File to add.
+     * @return Content of added file in string format.
      * @throws IOException if smth went wrong.
      */
-    private void addFileToCache(Path file) throws IOException {
+    private String addFileToCache(Path file) throws IOException {
         if (file == null) {
-            return;
+            return null;
         }
         String fileName = file.getFileName().toString();
         String content = readFile(file);
         cache.add(fileName, content);
+        return content;
     }
 
     /**
@@ -200,7 +202,7 @@ public class FileCache {
      */
     public String getFileContent(String fileName) throws IOException {
         if (cache.get(fileName) == null) {
-            addFileToCache(Paths.get(directory, fileName));
+            return addFileToCache(Paths.get(directory, fileName));
         }
         return cache.get(fileName);
     }
