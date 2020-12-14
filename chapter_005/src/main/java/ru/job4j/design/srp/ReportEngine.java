@@ -85,6 +85,7 @@ public class ReportEngine {
 
     /**
      * Sets special value of salary.
+     *
      * @param salary Input salary value.
      * @return Salary after editing.
      */
