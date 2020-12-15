@@ -3,23 +3,24 @@ package ru.job4j.design.srp;
 import java.util.function.Predicate;
 
 /**
- * Class for getting standard type
- * of report.
+ * Class for generating reports for
+ * counters department.
  */
-public class ReportEngine extends AbstractReport {
+public class CountersDepartmentReport extends AbstractReport {
     /**
      * Simple constructor to initialize
      * value of storage.
      *
      * @param store Source of employee's data.
      */
-    public ReportEngine(Store store) {
+    public CountersDepartmentReport(Store store) {
         super(store);
     }
 
     /**
-     * Generates standard report with
-     * employees info.
+     * Generates report in String format with
+     * employees info. Sets value of salary after
+     * editing in special method.
      *
      * @param filter Condition for choosing employees
      *               to add in report.
@@ -34,9 +35,20 @@ public class ReportEngine extends AbstractReport {
             text.append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
                     .append(employee.getFired()).append(";")
-                    .append(employee.getSalary()).append(";")
+                    .append(setSalary(employee.getSalary())).append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();
     }
+
+    /**
+     * Sets special value of salary.
+     *
+     * @param salary Input salary value.
+     * @return Salary after editing.
+     */
+    private double setSalary(double salary) {
+        return salary * 0.87;
+    }
+
 }

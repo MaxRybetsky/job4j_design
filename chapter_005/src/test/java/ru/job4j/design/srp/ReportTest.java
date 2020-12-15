@@ -8,9 +8,9 @@ import org.junit.Test;
 
 import java.util.Calendar;
 
-public class ReportEngineTest {
+public class ReportTest {
     private MemStore store;
-    private ReportEngine engine;
+    private Report engine;
     private Employee worker;
 
     @Before
@@ -19,11 +19,11 @@ public class ReportEngineTest {
         Calendar now = Calendar.getInstance();
         worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
-        engine = new ReportEngine(store);
     }
 
     @Test
     public void whenOldGenerated() {
+        engine = new ReportEngine(store);
         String expect = "Name; Hired; Fired; Salary"
                 + System.lineSeparator()
                 + worker.getName() + ";"
@@ -36,6 +36,7 @@ public class ReportEngineTest {
 
     @Test
     public void whenHtmlGenerated() {
+        engine = new ProgrammersDepartmentReport(store);
         String expect = "<html><head><title>Report</title></head><body>"
                 + "<p>Name; Hired; Fired; Salary<br>"
                 + worker.getName() + ";"
@@ -44,11 +45,12 @@ public class ReportEngineTest {
                 + worker.getSalary() + ";"
                 + "<br>" + "</p>"
                 + "</body></html>";
-        assertThat(engine.generateHtml(em -> true), is(expect));
+        assertThat(engine.generate(em -> true), is(expect));
     }
 
     @Test
     public void whetReportForCounters() {
+        engine = new CountersDepartmentReport(store);
         String expect = "Name; Hired; Fired; Salary"
                 + System.lineSeparator()
                 + worker.getName() + ";"
@@ -56,7 +58,7 @@ public class ReportEngineTest {
                 + worker.getFired() + ";"
                 + "87.0" + ";"
                 + System.lineSeparator();
-        assertThat(engine.generateForCounters(em -> true), is(expect));
+        assertThat(engine.generate(em -> true), is(expect));
     }
 
     @Test
@@ -68,7 +70,7 @@ public class ReportEngineTest {
         st.add(e1);
         st.add(e2);
         st.add(e3);
-        ReportEngine eng = new ReportEngine(st);
+        Report eng = new HRDepartmentReport(st);
         String expect = "Name; Salary"
                 + System.lineSeparator()
                 + e2.getName() + ";"
@@ -80,6 +82,6 @@ public class ReportEngineTest {
                 + e1.getName() + ";"
                 + e1.getSalary() + ";"
                 + System.lineSeparator();
-        assertThat(eng.generateForHR(em -> true), is(expect));
+        assertThat(eng.generate(em -> true), is(expect));
     }
 }
