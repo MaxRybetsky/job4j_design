@@ -201,9 +201,10 @@ public class FileCache {
      * @throws IOException if smth went wrong.
      */
     public String getFileContent(String fileName) throws IOException {
-        if (cache.get(fileName) == null) {
-            return addFileToCache(Paths.get(directory, fileName));
+        String result = cache.get(fileName);
+        if (result == null) {
+            result = addFileToCache(Paths.get(directory, fileName));
         }
-        return cache.get(fileName);
+        return result;
     }
 }
