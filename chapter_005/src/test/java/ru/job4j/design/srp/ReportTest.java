@@ -16,8 +16,11 @@ public class ReportTest {
     @Before
     public void before() {
         store = new MemStore();
-        Calendar now = Calendar.getInstance();
-        worker = new Employee("Ivan", now, now, 100);
+        Calendar date = Calendar.getInstance();
+        date.set(2019, Calendar.OCTOBER, 11, 23, 45, 12);
+        date.set(Calendar.MILLISECOND, 0);
+        date.set(Calendar.DAY_OF_WEEK, 4);
+        worker = new Employee("Ivan", date, date, 100);
         store.add(worker);
     }
 
@@ -83,5 +86,36 @@ public class ReportTest {
                 + e1.getSalary() + ";"
                 + System.lineSeparator();
         assertThat(eng.generate(em -> true), is(expect));
+    }
+
+    @Test
+    public void whenXMLReport() {
+        engine = new XMLReport(store);
+        String expect = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+                + "<employeesCollection>\n"
+                + "    <employees>\n"
+                + "        <fired>2019-10-16T23:45:12+03:00</fired>\n"
+                + "        <hired>2019-10-16T23:45:12+03:00</hired>\n"
+                + "        <name>" + worker.getName() + "</name>\n"
+                + "        <salary>" + worker.getSalary() + "</salary>\n"
+                + "    </employees>\n"
+                + "</employeesCollection>\n";
+        assertThat(engine.generate(em -> true), is(expect));
+    }
+
+    @Test
+    public void whenJSONReport() {
+        engine = new JSONReport(store);
+        String expect = "[{"
+                + "\"name\":\"Ivan\","
+                + "\"hired\":"
+                + "{\"year\":2019,\"month\":9,\"dayOfMonth\":16,\"hourOfDay\":23,"
+                + "\"minute\":45,\"second\":12},"
+                + "\"fired\":"
+                + "{\"year\":2019,\"month\":9,\"dayOfMonth\":16,\"hourOfDay\":23,"
+                + "\"minute\":45,\"second\":12},"
+                + "\"salary\":100.0"
+                + "}]";
+        assertThat(engine.generate(em -> true), is(expect));
     }
 }
