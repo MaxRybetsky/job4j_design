@@ -53,7 +53,8 @@ public class ReportTest {
 
     @Test
     public void whetReportForCounters() {
-        engine = new CountersDepartmentReport(store);
+        Converter converter = new TaxConverter(13);
+        engine = new CountersDepartmentReport(store, converter);
         String expect = "Name; Hired; Fired; Salary"
                 + System.lineSeparator()
                 + worker.getName() + ";"

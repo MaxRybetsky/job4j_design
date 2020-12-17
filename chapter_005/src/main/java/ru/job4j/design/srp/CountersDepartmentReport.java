@@ -8,13 +8,20 @@ import java.util.function.Predicate;
  */
 public class CountersDepartmentReport extends AbstractReport {
     /**
+     * Salary converter.
+     */
+    private Converter converter;
+
+    /**
      * Simple constructor to initialize
      * value of storage.
      *
      * @param store Source of employee's data.
+     * @param converter Custom salary-converter.
      */
-    public CountersDepartmentReport(Store store) {
+    public CountersDepartmentReport(Store store, Converter converter) {
         super(store);
+        this.converter = converter;
     }
 
     /**
@@ -35,20 +42,9 @@ public class CountersDepartmentReport extends AbstractReport {
             text.append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
                     .append(employee.getFired()).append(";")
-                    .append(setSalary(employee.getSalary())).append(";")
+                    .append(converter.convert(employee.getSalary())).append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();
     }
-
-    /**
-     * Sets special value of salary.
-     *
-     * @param salary Input salary value.
-     * @return Salary after editing.
-     */
-    private double setSalary(double salary) {
-        return salary * 0.87;
-    }
-
 }
