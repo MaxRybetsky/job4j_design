@@ -1,4 +1,4 @@
-package ru.job4j.design.lsp;
+package ru.job4j.design.lsp.foods;
 
 /**
  * Keeps food list in the trash.
