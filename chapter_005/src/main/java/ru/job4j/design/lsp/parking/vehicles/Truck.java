@@ -1,17 +1,17 @@
 package ru.job4j.design.lsp.parking.vehicles;
 
 /**
- * Simple Truck which can be parked.
+ * Simple Truck.
  */
 public class Truck extends AbstractVehicle {
     /**
-     * New Truck object: requires {@code requiredParkingSpace}
-     * parking place, has {@link VehicleType}.TRUCK type.
+     * New Truck object: requires {@code size}
+     * parking place.
      *
-     * @param name                 Name of truck.
-     * @param requiredParkingSpace Necessary parking place.
+     * @param name Name of truck.
+     * @param size Necessary parking place.
      */
-    public Truck(String name, int requiredParkingSpace) {
-        super(name, requiredParkingSpace, VehicleType.TRUCK);
+    public Truck(String name, int size) {
+        super(name, size);
     }
 }

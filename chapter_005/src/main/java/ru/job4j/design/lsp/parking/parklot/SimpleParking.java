@@ -1,26 +1,20 @@
 package ru.job4j.design.lsp.parking.parklot;
 
 import ru.job4j.design.lsp.parking.vehicles.Vehicle;
-import ru.job4j.design.lsp.parking.vehicles.VehicleType;
 
 import java.util.Map;
 
 /**
  * Simple parking.
  */
-public class SimpleParking implements ParkingLot {
+public class SimpleParking implements Parking {
     public SimpleParking(int cars, int trucks) {
 
     }
 
     @Override
-    public int park(Vehicle vehicle) {
-        return -1;
-    }
-
-    @Override
-    public Vehicle pickUpFrom(int parkNumber) {
-        return null;
+    public boolean park(Vehicle vehicle) {
+        return false;
     }
 
     @Override
@@ -29,12 +23,12 @@ public class SimpleParking implements ParkingLot {
     }
 
     @Override
-    public Map<VehicleType, Integer> getTotalPlace() {
+    public Map<ParkingType, Integer> getTotalPlace() {
         return null;
     }
 
     @Override
-    public Map<VehicleType, Integer> getFreePlace() {
+    public Map<ParkingType, Integer> getFreePlace() {
         return null;
     }
 }
