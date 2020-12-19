@@ -118,4 +118,32 @@ public class ControlQualityTest {
                 + food4 + "\n";
         assertThat(trash.toString(), is(expected));
     }
+
+    @Test
+    public void whenResort() {
+        controlQuality.sort(foods);
+        String expected = "Warehouse\n"
+                + food1 + "\n";
+        assertThat(warehouse.toString(), is(expected));
+        expected = "Shop\n"
+                + food2 + "\n"
+                + food3 + "\n";
+        assertThat(shop.toString(), is(expected));
+        expected = "Trash\n"
+                + food4 + "\n";
+        assertThat(trash.toString(), is(expected));
+        controlQuality = new ControlQuality(warehouse, shop, trash,
+                new TimeCounter(LocalDate.of(2021, 1, 2)));
+        controlQuality.resort();
+        expected = "Warehouse\n"
+                + food1 + "\n";
+        assertThat(warehouse.toString(), is(expected));
+        expected = "Shop\n";
+        assertThat(shop.toString(), is(expected));
+        expected = "Trash\n"
+                + food2 + "\n"
+                + food3 + "\n"
+                + food4 + "\n";
+        assertThat(trash.toString(), is(expected));
+    }
 }

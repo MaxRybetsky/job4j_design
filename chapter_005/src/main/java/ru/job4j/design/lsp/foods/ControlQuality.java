@@ -14,6 +14,11 @@ public class ControlQuality {
     private final StorageDispatcher dispatcher;
 
     /**
+     * List of storages.
+     */
+    private List<Storage> storages;
+
+    /**
      * Simple constructor to initialize dispatcher
      * with default time counter value.
      *
@@ -27,6 +32,7 @@ public class ControlQuality {
 
     /**
      * Simple constructor to initialize dispatcher.
+     * Adds storages to list.
      *
      * @param warehouse   The warehouse storage.
      * @param shop        The shop storage.
@@ -36,6 +42,7 @@ public class ControlQuality {
     public ControlQuality(Storage warehouse, Storage shop,
                           Storage trash, TimeCounter timeCounter) {
         this.dispatcher = new StorageDispatcher(warehouse, shop, trash, timeCounter);
+        storages = List.of(warehouse, shop, trash);
     }
 
     /**
@@ -48,5 +55,13 @@ public class ControlQuality {
         for (Food food : foodList) {
             dispatcher.distribution(food);
         }
+    }
+
+    /**
+     * Resorts food in food storages.
+     */
+    public void resort() {
+        List<Food> foodList = FoodHandler.collectAndClear(storages);
+        sort(foodList);
     }
 }
